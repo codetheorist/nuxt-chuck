@@ -1,14 +1,10 @@
 // module.js
 const { resolve, join } = require('path')
-const { readdirSync, readFile } = require('fs')
 import path from 'path'
 import fs from 'fs'
 import util from 'util'
-import consola from 'consola'
 
 const readDir = util.promisify(fs.readdir)
-const logger = consola
-const normalizeLanguage = locale => (locale || '').substr(0, 2).toLowerCase()
 
 const defaultOptions = {
   includeComponent: true,
@@ -71,7 +67,7 @@ module.exports = async function ChuckModule (options = {}) {
   const foldersToSync = ['plugins/helpers', 'store/modules']
   for (const pathString of foldersToSync) {
     const path = resolve(__dirname, pathString)
-    for (const file of readdirSync(path)) {
+    for (const file of readDir(path)) {
       this.addTemplate({
         src: resolve(path, file),
         fileName: join(namespace, pathString, file),
