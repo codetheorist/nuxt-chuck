@@ -1,6 +1,6 @@
 // module.js
 const { resolve, join } = require('path')
-const { readdirSync } = require('fs')
+const { readdirSync, readFile } = require('fs')
 
 export default function(moduleOptions) {
   // get all options for the module
@@ -19,7 +19,8 @@ export default function(moduleOptions) {
     'store/index.js',
     'plugins/index.js',
     'debug.js',
-    'middleware/index.js'
+    'middleware/index.js',
+    'jokes.json'
   ]
   for (const pathString of pluginsToSync) {
     this.addPlugin({
