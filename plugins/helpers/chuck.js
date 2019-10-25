@@ -1,3 +1,8 @@
+import Vue from 'vue'
+import ChuckJoke from '../../components/lib/ChuckJoke.vue'
+
+Vue.component('chuck-joke', ChuckJoke)
+
 // plugins/helpers/counter.js
 // functions to get, adjust and log the counter in the store
 // the store module in question will be created with the namespace

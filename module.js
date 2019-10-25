@@ -1,21 +1,59 @@
 // module.js
 const { resolve, join } = require('path')
 const { readdirSync, readFile } = require('fs')
+import path from 'path'
+import fs from 'fs'
+import util from 'util'
+import consola from 'consola'
 
-export default function(moduleOptions) {
-  // get all options for the module
-  const options = {
-    ...moduleOptions,
-    ...this.options.chuck
+const readDir = util.promisify(fs.readdir)
+const logger = consola
+const normalizeLanguage = locale => (locale || '').substr(0, 2).toLowerCase()
+
+const defaultOptions = {
+  includeComponent: true,
+  globalComponent: false,
+  css: true,
+  defaultLanguage: 'en',
+  languages: undefined,
+  languageStemmerMap: {},
+  namespace: 'chuck',
+  path: 'search-index',
+  placeholderText,
+  statusMessages,
+  ref: 'id',
+  fields: [
+    'title',
+    'body'
+  ]
+}
+
+module.exports = async function ChuckModule (options = {}) {
+  const nuxt = this.nuxt
+
+  options = {
+    ...defaultOptions,
+    ...nuxt.options.chuck,
+    ...options
   }
-
   // expose the namespace / set a default
   if (!options.namespace) options.namespace = 'chuck'
   const { namespace } = options
 
+  if (options.path !== defaultOptions.path) {
+    options.path = options.path.replace(/^\/+|\/+$/g, '')
+  }
+
+  this.addTemplate({
+    src: path.resolve(__dirname, 'components/lib/ChuckJoke.vue'),
+    fileName: 'chuck/ChuckJoke.vue',
+    options: {
+      ...options
+    }
+  })
+
   // add all of the initial plugins
   const pluginsToSync = [
-    'components/index.js',
     'store/index.js',
     'plugins/index.js',
     'debug.js',
@@ -29,9 +67,8 @@ export default function(moduleOptions) {
       options
     })
   }
-
   // sync all of the files and folders to revelant places in the nuxt build dir (.nuxt/)
-  const foldersToSync = ['plugins/helpers', 'store/modules', 'components/lib']
+  const foldersToSync = ['plugins/helpers', 'store/modules']
   for (const pathString of foldersToSync) {
     const path = resolve(__dirname, pathString)
     for (const file of readdirSync(path)) {
@@ -42,5 +79,6 @@ export default function(moduleOptions) {
       })
     }
   }
+
 }
 module.exports.meta = require('./package.json')
