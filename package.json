@@ -1,6 +1,6 @@
 {
   "name": "@codetheorist/nuxt-chuck",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "",
   "main": "module.js",
   "scripts": {
@@ -11,5 +11,8 @@
     "url": "https://thecodetheorist@bitbucket.org/thecodetheorist/nuxt-chuck.git"
   },
   "author": "Alex Scott <alex@codetheoristdevelopments.co.uk>",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "consola": "^2.10.1"
+  }
 }

@@ -1,14 +1,18 @@
 // module.js
 const { resolve, join } = require('path')
 const { readdirSync } = require('fs')
-
+const consola = require('consola')
+const logger = consola.withScope('@codetheorist:nuxt-chuck')
 export default function(moduleOptions) {
   // get all options for the module
   const options = {
     ...moduleOptions,
     ...this.options.chuck
   }
-
+  // Enforce vuex store because auth depends on it
+  if (!this.options.store) {
+    logger.fatal('Enable vuex store by creating `store/index.js`.')
+  }
   // expose the namespace / set a default
   if (!options.namespace) options.namespace = 'chuck'
   const { namespace } = options
