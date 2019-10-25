@@ -9,6 +9,7 @@
 <script>
 // components/lib/counterAdjuster.vue
 export default {
+  name: 'chuck-joke',
   computed: {
     pluginOptions() {
       // _chuckOptions will be added as a prop on component registration.

@@ -1,4 +1,4 @@
-import chuckJoke from './chuckJoke.vue'
+import ChuckJoke from './ChuckJoke.vue'
 export default {
-  chuckJoke
+  ChuckJoke
 }
