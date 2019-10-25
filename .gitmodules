@@ -1,0 +1,3 @@
+[submodule "example"]
+	path = example
+	url = https://thecodetheorist@bitbucket.org/thecodetheorist/nuxt-chuck-example.git

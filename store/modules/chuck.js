@@ -11,7 +11,7 @@ export default options => ({
     }
   },
   getters: {
-    count: state => state.joke
+    joke: state => state.joke
   },
   actions: {
     get_random_joke({ commit }) {
