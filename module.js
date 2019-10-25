@@ -1,60 +1,26 @@
 // module.js
 const { resolve, join } = require('path')
-import path from 'path'
-import fs from 'fs'
-import util from 'util'
+const { readdirSync } = require('fs')
 
-const readDir = util.promisify(fs.readdir)
-
-const defaultOptions = {
-  includeComponent: true,
-  globalComponent: false,
-  css: true,
-  defaultLanguage: 'en',
-  languages: undefined,
-  languageStemmerMap: {},
-  namespace: 'chuck',
-  path: 'search-index',
-  placeholderText,
-  statusMessages,
-  ref: 'id',
-  fields: [
-    'title',
-    'body'
-  ]
-}
-
-module.exports = async function ChuckModule (options = {}) {
-  const nuxt = this.nuxt
-
-  options = {
-    ...defaultOptions,
-    ...nuxt.options.chuck,
-    ...options
+export default function(moduleOptions) {
+  // get all options for the module
+  const options = {
+    ...moduleOptions,
+    ...this.options.chuck
   }
+
   // expose the namespace / set a default
   if (!options.namespace) options.namespace = 'chuck'
   const { namespace } = options
 
-  if (options.path !== defaultOptions.path) {
-    options.path = options.path.replace(/^\/+|\/+$/g, '')
-  }
-
-  this.addTemplate({
-    src: path.resolve(__dirname, 'components/lib/ChuckJoke.vue'),
-    fileName: 'chuck/ChuckJoke.vue',
-    options: {
-      ...options
-    }
-  })
-
   // add all of the initial plugins
   const pluginsToSync = [
+    'components/index.js',
     'store/index.js',
     'plugins/index.js',
     'debug.js',
-    'middleware/index.js',
-    'jokes.json'
+    'jokes.json',
+    'middleware/index.js'
   ]
   for (const pathString of pluginsToSync) {
     this.addPlugin({
@@ -63,11 +29,12 @@ module.exports = async function ChuckModule (options = {}) {
       options
     })
   }
+
   // sync all of the files and folders to revelant places in the nuxt build dir (.nuxt/)
-  const foldersToSync = ['plugins/helpers', 'store/modules']
+  const foldersToSync = ['plugins/helpers', 'store/modules', 'components/lib']
   for (const pathString of foldersToSync) {
     const path = resolve(__dirname, pathString)
-    for (const file of readDir(path)) {
+    for (const file of readdirSync(path)) {
       this.addTemplate({
         src: resolve(path, file),
         fileName: join(namespace, pathString, file),
@@ -75,6 +42,5 @@ module.exports = async function ChuckModule (options = {}) {
       })
     }
   }
-
 }
 module.exports.meta = require('./package.json')

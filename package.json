@@ -1,6 +1,6 @@
 {
   "name": "@codetheorist/nuxt-chuck",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "description": "",
   "main": "module.js",
   "scripts": {

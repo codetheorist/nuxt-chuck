@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="chuck-joke">
     <!-- Basic html to render the current count and provide adjustment buttons -->
-    <h1>{{ joke }}</h1>
+    <h1>{{ joke.joke ? joke.joke : '' }}</h1>
     <button class="chuck-joke--button" @click="random()">Get Joke</button>
   </div>
 </template>
@@ -38,36 +38,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.chuck-joke {
-  h1 {
-    display: block;
-    font-size: 2em;
-    font-weight: bold;
-    margin-top: 8px;
-  }
-  &--button {
-    height: 36px;
-    min-width: 64px;
-    padding: 0 16px;
-    margin: 4px;
-    color: #fff;
-    background-color: #1976d2;
-    border-radius: 4px;
-    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14),
-      0 1px 5px 0 rgba(0, 0, 0, 0.12);
-    transition: all 280ms cubic-bezier(0.4, 0, 0.2, 1);
-    &:hover {
-      background-color: #2f81d5;
-    }
-    &:active {
-      box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14),
-        0 3px 14px 2px rgba(0, 0, 0, 0.12);
-    }
-    &:focus {
-      outline: none;
-    }
-  }
-}
-</style>
