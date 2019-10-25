@@ -1,9 +1,7 @@
-const fs = require('fs')
+const jokes = require('../../jokes.json')
 let db = []
-fs.readFile('../../jokes.json', 'utf-8', (err, data) => {
-  if(err) { throw err; }
-  db = JSON.parse(data)
-})
+db = JSON.parse(jokes)
+
 // store/modules/counter.js
 export default options => ({
   namespaced: true,

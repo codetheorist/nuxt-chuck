@@ -13,8 +13,8 @@ export default ({ store }, inject) => {
     value() {
       return helpers.value({ state, namespace })
     },
-    adjust(adjustment) {
-      return helpers.adjust({ state, store, namespace, adjustment })
+    random(adjustment) {
+      return helpers.random({ state, store, namespace })
     },
     log() {
       return helpers.log({ state, namespace })

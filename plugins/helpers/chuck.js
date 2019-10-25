@@ -31,7 +31,7 @@ export const random = ({ state, store, namespace }) => {
   //   return console.error(`${namespace} nuxt module error: adjustment should be of type 'number'.`)
   // }
   // adjust the value of the counter using a store mutation
-  return store.commit(`${namespace}/random`, adjustment)
+  return store.commit(`${namespace}/random`)
 }
 
 // function to console log the current value of the count
