@@ -1,6 +1,6 @@
 {
   "name": "@codetheorist/nuxt-chuck",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "A NuxtJS module for displaying random Chuck Norris jokes in your NuxtJS app. If Chuck Norris is your cup of tea, then this module said the day will be saved because Chuck Norris said so. It's even in the built-in database!",
   "main": "module.js",
   "scripts": {
